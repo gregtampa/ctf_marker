@@ -1,6 +1,7 @@
 body{
 	background:#33373d;
-    height:100%;
+    height:auto%;
+    overflow: hidden;
 }
 
 
@@ -16,7 +17,7 @@ body{
 }
 
 .map__image path:hover{
-	fill:#87d18f;
+	fill:#ced187;
 }
 
 /* --------- dialog css ----------- */
@@ -36,10 +37,17 @@ body{
 	position:fixed;
 	background:#000;
 	border-radius: 7px;
+	font-family:"ctf";
 	width:550px;
 	z-index: 10;
 }
-#dialogbox > div{background:#FFF;margin:8px;}
-#dialogbox > div > #dialogboxhead{background:#666; font-size: 19px; padding: 10px; color:#CCC;}
+#dialogbox > div{background:#33373d; margin:8px;}
+#dialogbox > div > #dialogboxhead{background:#666; font-size: 19px; padding: 10px; color:#CCC; }
 #dialogbox > div > #dialogboxbody{background:#333; padding: 20px; color:#FFF;}
 #dialogbox > div > #dialogboxfoot{background:#666; padding: 10px; text-align: right;}
+
+/*------ font family ---------- */
+@font-face {
+    font-family: "ctf";
+    src: url('HACKED.woff')format('woff');
+}

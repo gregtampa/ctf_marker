@@ -7,10 +7,10 @@ function CustomAlert(){
 				dialogoverlay.style.display = "block";
 				dialogoverlay.style.height = winH+"px";
 				dialogbox.style.left = (winW/2) - (550 * .5)+"px";
-				dialogbox.style.top = "100px";
+				dialogbox.style.top = (winH/2) - (550 * .5)+"px";
 				dialogbox.style.display = "block";
-				document.getElementById('dialogboxhead').innerHTML = "Acknowledge";
-				document.getElementById('dialogboxbody').innerHTML = dialog;
+				document.getElementById('dialogboxhead').innerHTML = dialog;
+				document.getElementById('dialogboxbody').innerHTML = "dialog";
 				document.getElementById('dialogboxfoot').innerHTML = '<button onclick="Alert.ok()">OK</button>';
 			}
 			this.ok = function(){
