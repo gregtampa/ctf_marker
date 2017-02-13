@@ -27,11 +27,21 @@
 				while($row = mysqli_fetch_assoc($t_result)){
 					$t_yes = $row['T_YES'];
 					$t_no = $row['T_NO'];
+					$t_team = $row['TEAM'];
+					$session_team = $_SESSION['TEAM'];
+					if($t_team == $session_team){
 						if($status == 0){
 							echo "<path id='$code' fill='$t_no' title='$title' d='$d' onclick='Alert.menu(\"$c_code\",\"$title\",\"$flag\");'/>";
 						}else{
 							echo "<path id='$code' fill='$t_yes' title='$title' d='$d' onclick='Alert.menu(\"$c_code\",\"$title\",\"$flag\");'/>";
+						}	
+					}else{
+						if($status == 0){
+							echo "<path id='$code' fill='$t_no' title='$title' d='$d'/>";
+						}else{
+							echo "<path id='$code' fill='$t_yes' title='$title' d='$d'/>";
 						}
+					}
 				}								
 			}
 		}	

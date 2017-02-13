@@ -22,7 +22,7 @@ var loginCheck = function(){
 		data: {uname: usr, psw: psw},
 		success: function(status){
 			$('#login_status').html(status);
-			$('#login_usr').val('');
+			$('#login_usr').val(usr);
 			$('#login_psw').val('');
 			var slogstat = $('#login_status').text();
 			if(slogstat == "Login Success"){

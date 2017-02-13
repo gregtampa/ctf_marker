@@ -183,10 +183,11 @@ body{
 }
 
 #div3_inner_chat_history{
-	width:100%;
+	width:95%;
 	height:85%;
 	border:1px solid #abd17d;
 	overflow-y:auto;
+	margin:0px auto;
 }
 
 #div3_inner_chat_input input{
@@ -218,7 +219,9 @@ body{
 	width:50px;
 	height:50px;
 	line-height:50px;
-	background-color:#abd17d;
+	background-color:inherit;
+	border:solid 1px #ABD17D;
+	color:#ABD17D;
 	border-radius:5em;
 	text-align:center;
 	text-decoration: none;
@@ -362,4 +365,4 @@ body{
 .modal_info{
 	display:inline;
 }
-/*-------------------- Popup Dialog --------------------------------- */
+/*-------------------- Scroll Bar --------------------------------- */

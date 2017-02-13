@@ -24,47 +24,47 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 		<script src="js/dialog.js"></script>
 		<!-- Bootstrap  -->
 	</head>
-	<script>
-		$(document).ready(function(){
-			$(".map__image").draggable();
-		});
-		//Chat
-		$(document).ready(function(){
-   			$("#chat").click(function(){
-        		$("#info_chat").slideToggle("slow");
-    		});
-		});
-		
-		$(document).ready(function(){
-			$('#modal-country-flag').keypress(function(event){
-				var key = (event.keyCode ? event.keyCode : event.which);
-				if(key == 13){
-					callback();
-				}
-			});
-			$('#fsubmit').click(function(){
-				callback();
-			});
-		});
-		var callback = function(){
-			var info = $('#modal-country-flag').val();
-			var coun_id = $('#dialog-id').text();
-			$.ajax({
-				method: "POST",
-				url: "template/flagcheck.php",
-				data: {flag: info, cid: coun_id},
-				success: function(status){
-					$('#flag_hint').html(status);
-					$('#modal-country-flag').val('');
-				}
-			});
-		};		
-	</script>
+	<script src="js/jquery_form.js"></script>
 	<style>
 		.modal-content{
 			width:30%;
 			height:auto;
 		}
+				
+		::-webkit-scrollbar {
+		  width: 6px;
+		  height: 6px;
+		}
+		::-webkit-scrollbar-button {
+		  width: 0px;
+		  height: 0px;
+		}
+		::-webkit-scrollbar-thumb {
+		  background: #ceb342;
+		  border: 0px none #ffffff;
+		  border-radius: 50px;
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: #faf434;
+		}
+		::-webkit-scrollbar-thumb:active {
+		  background: #000000;
+		}
+		::-webkit-scrollbar-track {
+		  background: #abd17d;
+		  border: 0px none #ffffff;
+		  border-radius: 90px;
+		}
+		::-webkit-scrollbar-track:hover {
+		  background: #41a428;
+		}
+		::-webkit-scrollbar-track:active {
+		  background: #ffff00;
+		}
+		::-webkit-scrollbar-corner {
+		  background: transparent;
+		}
+
 	</style>
 <body>
 	<!--Dialog Code -->
@@ -72,7 +72,13 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 	<div class="map__image" id="main"><!--ViewBox -15 100 1100 665 -->
 			<svg xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" viewBox="-15 0 1100 665">
 				<g>	
-					 <?php include 'template/mapdisplay.php'; ?>
+					 <?php 
+					 	if(isset($_SESSION['USERNAME']) && isset($_SESSION['TEAM']) && !empty($_SESSION['USERNAME'])){
+					 		include 'template/mapdisplay.php';
+					 	}else{
+					 		include 'template/mapdisplay_nonuser.php'; 	
+					 	}
+					 ?>
 				</g>
 			</svg>
 	</div>
@@ -110,35 +116,17 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 	<div id="div2">
 	  <div id="div2_inner">
 			<div id="div2_inner_border">
-				<p>=> Flag Captured</p>
+				<?php include 'template/viewlog.php'; ?>
 			</div>
 	  </div>	
 	</div>
 	<div id="div3">
 	  <div id="div3_inner">
 			<div id="div3_inner_chat_history">
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
-				<p>=> Flag Captured</p>
+				<?php include 'template/viewchat.php'; ?>
 			</div>
 			<div id="div3_inner_chat_input">
-				<input type="text" placeholder="Enter Message and Press Enter" />
+				<input id="div3_chat_input" type="text" placeholder="Enter Message and Press Enter" />
 			</div>
 	  </div>
 	</div>
@@ -174,12 +162,20 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 		$center_panel_result = mysqli_query($connection, $center_panel_sql);
 		while($center_row = mysqli_fetch_assoc($center_panel_result)){
 			$team = $center_row['TEAM'];
-			echo "<a href='index.php?team=$team' class='center_panel_count'>$team</a>";
+			if(isset($_SESSION['TEAM'])){
+				$sess_team = $_SESSION['TEAM'];
+			}else{
+				$sess_team = "";
+			}		
+			if($team == $sess_team){
+				echo "<a href='index.php?team=$team' class='center_panel_count' style='background-color:#ABD17D;color:black;'>$team</a>";
+			}else{
+				echo "<a href='index.php?team=$team' class='center_panel_count'>$team</a>";
+			}
+			
 		}
 		
 		?>
-		
-		<!-- <a href="index.php?team=4" class="center_panel_count">D</a> -->
 	</div>
 </div>
 
@@ -220,5 +216,7 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 
 </div>
 <script src="js/dialog.js"></script>
+<input type="hidden" id="session_team" value="<?php if(isset($_SESSION['TEAM'])){echo $_SESSION['TEAM'];}?>"  />
+<input type="hidden" id="session_user" value="<?php if(isset($_SESSION['USERNAME'])){echo $_SESSION['USERNAME'];}?>"  />
 </body>
 </html>	
