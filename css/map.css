@@ -94,34 +94,110 @@ body{
 .div1_inner_team{
 	width:100%;
 	height:50%;
-	background:maroon;
+	background:#354b1b;
+	border:solid 1px #ABD17D;
+}
 
+.div1_inner_team_logo{
+	width:29%;
+	height:100%;
+	border-right:solid 1px #abd17d;
+	float:left;
+}
+
+.div1_inner_team_logo img{
+	width:100%;
+	height:100%;
 }
 
 .div1_inner_other_team{
 	width:100%;
 	height:50%;
-	background:#808080;
 	overflow-x: hidden;
 	overflow-y:scroll;
 }
 
-.div1_inner_team_logo{
-	width:30%;
+.div1_inner_team_content{
+	width:69.8%;
 	height:100%;
-	border-right:solid 1px #abd17d;
+	float:right;
+}
+/* -------------------------- */
+.div1_inner_team_content_subs{
+	width:100%;
+	height:25%;
+	line-height:28%;
 }
 
+.div1_inner_team_content_subs h3{
+	text-align:center;
+}
+
+.div1_inner_team_content_subs_key{
+	height:80%;
+	width:49%;
+	float:left;
+	line-height:80%;
+	text-align:left;
+}
+
+.div1_inner_team_content_subs_value{
+	height:80%;
+	width:49%;
+	float:right;
+	line-height:80%;	
+	text-align:center;
+	padding:0px;
+}
+
+.tg{
+	width:100%;
+}
+
+.tg-yw4l{
+	width:50%;
+	text-align:left;
+	font-size:large;
+	padding-left:20%;
+}
+/* -------------------------- */
+#main_logout{
+	width:100px;
+	height:50px;
+	line-height:50px;
+	float:right;
+	position:absolute;
+	top:5px;
+	margin-left: 11px;
+	background-color:inherit;
+	border:1px solid #ABD17D;
+	text-align:center;
+	text-decoration:none;
+	color:#ABD17D;
+	border-radius:1em;
+}
+
+#main_logout:hover{
+	background:#ABD17D;
+	color:#000000;
+}
+
+/* -------------------------- */
 #div2_inner_border{
 	width:100%;
 	height:100%;
 	border:1px solid #abd17d;
 	margin:0px auto;
 	overflow-y:scroll;
+	background:#354b1b;
 }
 
 #div2_inner_border > p{
-	color:orange;
+	color:#ABD17D;
+	padding-left:10px;
+}
+
+#div3_inner_chat_history > p{
 	padding-left:10px;
 }
 
@@ -183,7 +259,7 @@ body{
 }
 
 #div3_inner_chat_history{
-	width:95%;
+	width:100%;
 	height:85%;
 	border:1px solid #abd17d;
 	overflow-y:auto;
@@ -199,7 +275,6 @@ body{
 	border-bottom-left-radius: 1em;
 	border-bottom-right-radius: 1em;
 }
-
 /*---------------------------------- Center Info Panel   ----------------------------------*/
 #center_panel{
 	width:20%;

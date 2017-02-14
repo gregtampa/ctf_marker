@@ -19,8 +19,9 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Iceland|Orbitron" rel="stylesheet"> 
-		<link rel="stylesheet" href="css/map.css"/>
+		<link rel="stylesheet" href="css/map.css" type="text/css"/>
 		<link rel="stylesheet" href="css/login.css" type="text/css"/>
+		<link rel="stylesheet" href="css/score.css" type="text/css"/>
 		<script src="js/dialog.js"></script>
 		<!-- Bootstrap  -->
 	</head>
@@ -88,27 +89,107 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 <div id="info_menu" onclick="openNav()">
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 </div>
-
 <div id="mySidenav" class="sidenav">
   	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  	<a href="template/logout.php">Logout</a>
   	<?php
   	if(isset($_SESSION['USERNAME']) && isset($_SESSION['TEAM']))
   	{
   	?>
+    <a href="template/logout.php" id="main_logout">Logout</a>
 	<div id="div1">
 		<div id="div1_inner">
 			<div id="div1_inner_heading">
 				<h1>Score Board</h1>
 			</div>
 			<div class="div1_inner_body">
+					<?php
+					$score_sql = "SELECT * FROM scoreboard ORDER BY SCORE DESC";
+					$score_result = mysqli_query($connection, $score_sql);
+					$rank = 0;
+					while($score_row = mysqli_fetch_assoc($score_result))
+					{
+						$score_team = $score_row['TEAM'];
+						$score_score = $score_row['SCORE'];
+						$score_penalty = $score_row['PENALTY'];
+						$score_team_session = $_SESSION['TEAM'];
+						$rank+=1;
+						
+						if($score_team_session == $score_team){
+							
+					?>
 				<div class="div1_inner_team">
 					<div class="div1_inner_team_logo">
-						
+						<img src="images/anon1.png"/>
+					</div>
+					<div class="div1_inner_team_content">
+						<div class="div1_inner_team_content_subs">
+							<h3>#Rank <?php echo $rank;?></h3>
+						</div>
+						<div class="div1_inner_team_content_subs">
+							<table class="tg">
+								  <tr>
+								    <th class="tg-yw4l">Points</th>
+								    <th class="tg-yw4l"><?php echo $score_score; ?></th>
+								  </tr>
+							</table>
+						</div>
+						<div class="div1_inner_team_content_subs">
+							<table class="tg">
+								  <tr>
+								    <th class="tg-yw4l">Penalty</th>
+								    <th class="tg-yw4l"><?php echo $score_penalty; ?></th>
+								  </tr>
+							</table>
+						</div>												
 					</div>
 				</div>
-				<div class="div1_inner_other_team">
 
+				<div class="div1_inner_other_team">
+					<?php
+						}
+					}
+					$score_sql_1 = "SELECT * FROM scoreboard ORDER BY SCORE DESC";
+					$score_result_1 = mysqli_query($connection, $score_sql);
+					$ranks = 0;
+					while($score_row_1 = mysqli_fetch_assoc($score_result_1)){
+						$score_team_1 = $score_row_1['TEAM'];
+						$score_score_1 = $score_row_1['SCORE'];
+						$score_penalty_1 = $score_row_1['PENALTY'];
+						$score_team_session_1 = $_SESSION['TEAM'];
+						$ranks+=1;
+						
+						if($score_team_session_1 != $score_team_1){
+					?>
+					<!-- -->
+					<div class="div1_inner_team_logo">
+						<img src="images/anon1.png"/>
+					</div>
+					<div class="div1_inner_team_content">
+						<div class="div1_inner_team_content_subs">
+							<h3>#Rank <?php echo $ranks;?></h3>
+						</div>
+						<div class="div1_inner_team_content_subs">
+							<table class="tg">
+								  <tr>
+								    <th class="tg-yw4l">Points</th>
+								    <th class="tg-yw4l"><?php echo $score_score_1; ?></th>
+								  </tr>
+							</table>
+						</div>
+						<div class="div1_inner_team_content_subs">
+							<table class="tg">
+								  <tr>
+								    <th class="tg-yw4l">Penalty</th>
+								    <th class="tg-yw4l"><?php echo $score_penalty_1; ?></th>
+								  </tr>
+							</table>
+						</div>												
+					</div>
+					<?php
+						}
+					}
+					?>
+					<!-- -->
 				</div>
 			</div>
 		</div>	  
