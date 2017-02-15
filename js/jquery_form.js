@@ -18,6 +18,20 @@
 			$('#fsubmit').click(function(){
 				callback();
 			});
+			
+			$('#fhint').click(function(){
+				var coun_id1 = $('#dialog-id').text();
+				var team1 = $('#session_team').val();
+				$.ajax({
+				method: "POST",
+				url: "template/flagcheck.php",
+				data: {type: "hint", cid: coun_id1, team: team1},
+				success: function(status){
+					$('#flag_hint').html(status);
+					$('#modal-country-flag').val('');
+				}
+			});
+			});
 		});
 		var callback = function(){
 			var info = $('#modal-country-flag').val();

@@ -1,5 +1,5 @@
 <?php
-	include 'template/connection.php';
+	$connection = mysqli_connect('localhost', 'root', '', 'ctf');
 	$sql = "SELECT * FROM countries";
 	$result = mysqli_query($connection, $sql);
 	while($row = mysqli_fetch_assoc($result)){ //Initialise country
@@ -10,6 +10,9 @@
 
 		if(isset($_GET['team'])){
 			$no = $_GET['team'];
+			$c_select = "SELECT * FROM flag WHERE TEAM='$no'";
+		}else if(isset($_SESSION['TEAMCOOK'])){
+			$no = $_COOKIE['TEAMCOOK'];
 			$c_select = "SELECT * FROM flag WHERE TEAM='$no'";
 		}else{
 			$c_select = "SELECT * FROM flag";

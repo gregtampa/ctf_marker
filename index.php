@@ -26,6 +26,30 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 		<!-- Bootstrap  -->
 	</head>
 	<script src="js/jquery_form.js"></script>
+	<script>
+		setInterval(function () {
+			$("#div1_inner_body_1").load("./template/userscoreboard.php"),
+		    $("#div3_inner_chat_history").load("./template/viewchat.php").click(chatscroll()),
+		    $("#div2_inner_border").load("./template/viewlog.php").click(actiscroll());
+		}, 1000);
+		
+		setInterval(function(){
+			$("#div1_inner_body_2").load("./template/teamscoreboard.php");
+		},10000);
+		
+		function chatscroll() {
+		  var a_chat    = $('#div3_inner_chat_history');		  
+		  var cheight = a_chat[0].scrollHeight;
+		  a_chat.scrollTop(cheight);
+		}
+		
+		function actiscroll(){
+		  var a_log    = $('#div2_inner_border');
+		  var aheight = a_log[0].scrollHeight;
+		  a_log.scrollTop(aheight);
+		}
+		
+	</script>
 	<style>
 		.modal-content{
 			width:30%;
@@ -101,96 +125,9 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
 			<div id="div1_inner_heading">
 				<h1>Score Board</h1>
 			</div>
-			<div class="div1_inner_body">
-					<?php
-					$score_sql = "SELECT * FROM scoreboard ORDER BY SCORE DESC";
-					$score_result = mysqli_query($connection, $score_sql);
-					$rank = 0;
-					while($score_row = mysqli_fetch_assoc($score_result))
-					{
-						$score_team = $score_row['TEAM'];
-						$score_score = $score_row['SCORE'];
-						$score_penalty = $score_row['PENALTY'];
-						$score_team_session = $_SESSION['TEAM'];
-						$rank+=1;
-						
-						if($score_team_session == $score_team){
-							
-					?>
-				<div class="div1_inner_team">
-					<div class="div1_inner_team_logo">
-						<img src="images/anon1.png"/>
-					</div>
-					<div class="div1_inner_team_content">
-						<div class="div1_inner_team_content_subs">
-							<h3>#Rank <?php echo $rank;?></h3>
-						</div>
-						<div class="div1_inner_team_content_subs">
-							<table class="tg">
-								  <tr>
-								    <th class="tg-yw4l">Points</th>
-								    <th class="tg-yw4l"><?php echo $score_score; ?></th>
-								  </tr>
-							</table>
-						</div>
-						<div class="div1_inner_team_content_subs">
-							<table class="tg">
-								  <tr>
-								    <th class="tg-yw4l">Penalty</th>
-								    <th class="tg-yw4l"><?php echo $score_penalty; ?></th>
-								  </tr>
-							</table>
-						</div>												
-					</div>
-				</div>
-
-				<div class="div1_inner_other_team">
-					<?php
-						}
-					}
-					$score_sql_1 = "SELECT * FROM scoreboard ORDER BY SCORE DESC";
-					$score_result_1 = mysqli_query($connection, $score_sql);
-					$ranks = 0;
-					while($score_row_1 = mysqli_fetch_assoc($score_result_1)){
-						$score_team_1 = $score_row_1['TEAM'];
-						$score_score_1 = $score_row_1['SCORE'];
-						$score_penalty_1 = $score_row_1['PENALTY'];
-						$score_team_session_1 = $_SESSION['TEAM'];
-						$ranks+=1;
-						
-						if($score_team_session_1 != $score_team_1){
-					?>
-					<!-- -->
-					<div class="div1_inner_team_logo">
-						<img src="images/anon1.png"/>
-					</div>
-					<div class="div1_inner_team_content">
-						<div class="div1_inner_team_content_subs">
-							<h3>#Rank <?php echo $ranks;?></h3>
-						</div>
-						<div class="div1_inner_team_content_subs">
-							<table class="tg">
-								  <tr>
-								    <th class="tg-yw4l">Points</th>
-								    <th class="tg-yw4l"><?php echo $score_score_1; ?></th>
-								  </tr>
-							</table>
-						</div>
-						<div class="div1_inner_team_content_subs">
-							<table class="tg">
-								  <tr>
-								    <th class="tg-yw4l">Penalty</th>
-								    <th class="tg-yw4l"><?php echo $score_penalty_1; ?></th>
-								  </tr>
-							</table>
-						</div>												
-					</div>
-					<?php
-						}
-					}
-					?>
-					<!-- -->
-				</div>
+			<div class="div1_inner_body">				
+				<span id="div1_inner_body_1"><?php include 'template/userscoreboard.php'; ?></span>
+				<span id="div1_inner_body_2"><?php include 'template/teamscoreboard.php'; ?></span>				
 			</div>
 		</div>	  
 	</div>
@@ -288,7 +225,10 @@ if(!isset($_GET['team']) || empty($_GET['team'])){
     <div class="modal-body">
        <p id="dialog-flag"></p>	
 	   <input type="text" placeholder="Enter Flag Here..." id="modal-country-flag"/>
-	   <button type="fsubmit" id="fsubmit">Submit</button>
+	   <div id="dialog_flag_button">
+	   		<button type="fsubmit" id="fsubmit">Submit</button>
+	  	 	<button type="fsubmit" id="fhint">Hint</button>
+	   </div>
     </div>
     <div class="modal-footer">
       <h3 id="flag_hint">Status</h3>

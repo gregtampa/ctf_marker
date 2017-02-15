@@ -24,6 +24,7 @@
 				$_SESSION['USERNAME'] = $user;
 				$_SESSION['TEAM'] = $auth;
 				//header('location:../index.php?team=1');
+				setcookie("TEAMCOOK",$auth,time()+(86400*3),"/");
 				echo "<h3 style='color:green;'>Login Success</h3>";
 			}	
 		}else{

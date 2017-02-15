@@ -1,5 +1,5 @@
 // Set the date we're counting down to
-var countDownDate = new Date("Feb 13, 2017 23:37:25").getTime();
+var countDownDate = new Date("Feb 14, 2017 23:37:25").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -25,6 +25,6 @@ var x = setInterval(function() {
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("timer").innerHTML = "EXPIRED";
+        document.getElementById("timer").innerHTML = "TIME UP";
     }
 }, 1000);
